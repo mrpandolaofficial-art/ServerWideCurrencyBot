@@ -31,4 +31,8 @@ class Database:
         self.cursor.execute('UPDATE users SET wallet = wallet + ? WHERE user_id = ?', (amount, user_id))
         self.conn.commit()
 
+    def get_leaderboard(self):
+        self.cursor.execute('SELECT user_id, (wallet + bank) as total FROM users ORDER BY total DESC LIMIT 10')
+        return self.cursor.fetchall()
+
 db = Database()
