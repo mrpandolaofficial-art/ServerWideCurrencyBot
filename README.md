@@ -76,3 +76,16 @@ python3 main.py
 | !deposit / !dep | Move money to the safety of the Bank. | None |
 | !withdraw / !with | Take money out of the Bank. | None |
 | !rob @user | High-risk: Steal from a user's wallet. | 5m |
+
+---
+
+## 📈 Version History
+
+### [1.1.0] - 2026-02-09
+- **Added:** Global Banking system (`!dep`, `!with`).
+- **Added:** Competitive Robbery system (`!rob`).
+- **Added:** Developer "God Mode" (`!setmoney`).
+- **Fixed:** Database connection paths for renamed directories.
+
+### [1.0.0] - 2026-02-08
+- Initial release with Core Economy (Beg, Work, Balance, Pay).
