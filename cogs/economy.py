@@ -91,7 +91,7 @@ class Economy(commands.Cog):
         embed = discord.Embed(
             title="🌍 Global Leaderboard", 
             description=description, 
-            color=discord.Color.gold()
+            color=discord.Color.blurple()
         )
         await ctx.send(embed=embed)
 
