@@ -75,18 +75,35 @@ class Economy(commands.Cog):
         top_users = db.get_leaderboard()
         description = ""
         for i, (user_id, total) in enumerate(top_users, start=1):
+            # Try to get from cache first
             user = self.bot.get_user(user_id)
-            name = f"User {user_id}" if user is None else user.display_name
+            
+            # If not in cache, try to fetch from Discord API
+            if user is None:
+                try:
+                    user = await self.bot.fetch_user(user_id)
+                except:
+                    user = None
+
+            name = user.display_name if user else f"Unknown ({user_id})"
             description += f"**{i}. {name}** — ${total:,}\n"
 
-        embed = discord.Embed(title="🌍 Global Leaderboard", description=description, color=discord.Color.gold())
+        embed = discord.Embed(
+            title="🌍 Global Leaderboard", 
+            description=description, 
+            color=discord.Color.gold()
+        )
         await ctx.send(embed=embed)
 
-    # Cooldown Error Handler
-    @cog_app_command_error # This handles errors for all commands in this Cog
+# No decorator needed here! 
+    # This is a built-in function that discord.py looks for automatically.
     async def cog_command_error(self, ctx, error):
         if isinstance(error, commands.CommandOnCooldown):
             await ctx.send(f"⏳ Slow down! Try again in **{error.retry_after:.1f}s**.")
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("❌ Missing information! Check the command usage.")
+        else:
+            print(f"Error in Cog: {error}")
 
 async def setup(bot):
     await bot.add_cog(Economy(bot))
