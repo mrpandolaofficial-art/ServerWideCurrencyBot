@@ -28,6 +28,8 @@ cd ServerWideCurrencyBot
 ### 3. Create a Virtual Environment
 ```bash
 python3 -m venv venv
+```
+```bash
 source venv/bin/activate
 ```
 
