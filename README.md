@@ -81,7 +81,7 @@ python3 main.py
 
 ## 📈 Version History
 
-### [1.1.0] - 2026-02-09
+### [1.1.0] - 2026-02-08
 - **Added:** Global Banking system (`!dep`, `!with`).
 - **Added:** Competitive Robbery system (`!rob`).
 - **Added:** Developer "God Mode" (`!setmoney`).
