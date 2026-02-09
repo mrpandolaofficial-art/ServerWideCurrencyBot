@@ -47,7 +47,9 @@ Rename `env.example` to `.env`.
 
 ### 2. Add Your Token
 Open the `.env` file and paste:
+```env
 DISCORD_TOKEN=your_token_here
+```
 
 ---
 
