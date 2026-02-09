@@ -7,6 +7,28 @@ class Economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(name="pay", aliases=["send", "give"])
+    async def pay(self, ctx, member: discord.Member, amount: int):
+        """Transfer money from your wallet to another user."""
+        if member.id == ctx.author.id:
+            return await ctx.send("❌ You can't pay yourself!")
+        
+        if amount <= 0:
+            return await ctx.send("❌ You must pay at least $1.")
+
+        # Check sender's balance
+        sender_data = db.get_user(ctx.author.id)
+        sender_wallet = sender_data[1]
+
+        if sender_wallet < amount:
+            return await ctx.send("❌ You don't have enough money in your wallet!")
+
+        # Process the transaction
+        db.update_wallet(ctx.author.id, -amount) # Subtract from sender
+        db.update_wallet(member.id, amount)      # Add to receiver
+
+        await ctx.send(f"✅ You sent **${amount:,}** to **{member.display_name}**!")
+
     @commands.command(name="balance", aliases=["bal"])
     async def balance(self, ctx, member: discord.Member = None):
         """Check your global balance or someone else's."""

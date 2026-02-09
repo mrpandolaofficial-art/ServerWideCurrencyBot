@@ -27,7 +27,7 @@ class Database:
         return user
 
     def update_wallet(self, user_id, amount):
-        self.get_user(user_id) # Ensure user exists
+        self.get_user(user_id)  # This auto-creates the user if they're new
         self.cursor.execute('UPDATE users SET wallet = wallet + ? WHERE user_id = ?', (amount, user_id))
         self.conn.commit()
 
